@@ -37,7 +37,6 @@ A RESTful API for managing tasks built with FastAPI, SQLite, and Redis. This API
 
 1. Make sure Docker Desktop is running:
    - Open Docker Desktop application
-   - Wait for the whale icon in the menu bar to stop animating
 
 2. First time setup - Build and start services:
    ```bash
@@ -64,22 +63,7 @@ A RESTful API for managing tasks built with FastAPI, SQLite, and Redis. This API
    - ReDoc documentation: http://localhost:8000/redoc
    - Direct API access: http://localhost:8000
 
-5. Container Management:
-   ```bash
-   # List running containers
-   docker ps
-
-   # Stop all containers
-   docker compose down
-
-   # Remove all containers and volumes (clean start)
-   docker compose down -v
-
-   # Rebuild and start (after code changes)
-   docker compose up --build
-   ```
-
-6. Troubleshooting:
+5. Troubleshooting:
    - If the API is not responding, check container status: `docker ps`
    - View logs: `docker compose logs`
    - Restart services: `docker compose restart`
