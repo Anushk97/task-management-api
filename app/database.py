@@ -1,10 +1,18 @@
+import os
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker, DeclarativeBase, Mapped, mapped_column
-from sqlalchemy import String, DateTime, func
+from sqlalchemy import String, DateTime, func, Enum, text
 from datetime import datetime
 from typing import List, Optional
 import logging
 import enum
+
+# Get database URL from environment variable
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+asyncpg://postgres:postgres@localhost:5432/tasks")
+
+# If it's a postgres URL from Render, it needs to be modified for asyncpg
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql+asyncpg://", 1)
 
 class Base(DeclarativeBase):
     pass
@@ -20,7 +28,10 @@ class Task(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str] = mapped_column(String(100))
     description: Mapped[str] = mapped_column(String(500))
-    status: Mapped[TaskStatus] = mapped_column(String(20), default=TaskStatus.PENDING)
+    status: Mapped[TaskStatus] = mapped_column(
+        Enum(TaskStatus, name='task_status', create_type=False),
+        default=TaskStatus.PENDING
+    )
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(
         DateTime, 
@@ -29,8 +40,10 @@ class Task(Base):
     )
 
 engine = create_async_engine(
-    "sqlite+aiosqlite:///./tasks.db",
-    echo=True
+    DATABASE_URL,
+    echo=True,
+    pool_size=5,
+    max_overflow=10
 )
 
 AsyncSessionLocal = sessionmaker(
@@ -40,8 +53,24 @@ AsyncSessionLocal = sessionmaker(
 )
 
 async def init_db():
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+    try:
+        # Create tables
+        async with engine.begin() as conn:
+            # Create enum type if using PostgreSQL
+            if 'postgresql' in DATABASE_URL:
+                await conn.execute(text(
+                    """DO $$ 
+                    BEGIN 
+                        IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'task_status') THEN
+                            CREATE TYPE task_status AS ENUM ('PENDING', 'IN_PROGRESS', 'COMPLETE');
+                        END IF;
+                    END $$;"""
+                ))
+            # Create all tables
+            await conn.run_sync(Base.metadata.create_all)
+    except Exception as e:
+        print(f"Error initializing database: {e}")
+        raise
 
 async def get_db() -> AsyncSession:
     async with AsyncSessionLocal() as session:

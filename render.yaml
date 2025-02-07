@@ -6,11 +6,21 @@ services:
     plan: free
     healthCheckPath: /docs
     envVars:
+      - key: DATABASE_URL
+        fromService:
+          type: postgres
+          name: task-api-db
+          property: connectionString
       - key: REDIS_URL
         fromService:
           type: redis
           name: task-api-cache
           property: connectionString
+
+  - type: postgres
+    name: task-api-db
+    ipAllowList: []
+    plan: free
 
   - type: redis
     name: task-api-cache
