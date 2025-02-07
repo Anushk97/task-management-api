@@ -40,7 +40,7 @@ class RedisCache:
             await self.redis_client.set(
                 f"task:{task_id}",
                 json.dumps(task_data),
-                ex=3600  # Cache for 1 hour
+                ex=3600  # cache for 1 hour
             )
         except Exception:
             pass

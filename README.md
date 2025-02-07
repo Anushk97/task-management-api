@@ -35,15 +35,21 @@ A RESTful API for managing tasks built with FastAPI, SQLite, and Redis. This API
 
 ### Using Docker (Recommended)
 
-1. Make sure Docker Desktop is running:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/anushkfarkiya/task-management-api.git
+   cd task-management-api
+   ```
+
+2. Make sure Docker Desktop is running:
    - Open Docker Desktop application
 
-2. First time setup - Build and start services:
+3. First time setup - Build and start services:
    ```bash
    docker compose up --build
    ```
 
-3. For subsequent runs:
+4. For subsequent runs:
    ```bash
    # Start the services
    docker compose up
@@ -58,12 +64,12 @@ A RESTful API for managing tasks built with FastAPI, SQLite, and Redis. This API
    docker compose logs -f
    ```
 
-4. Access the services:
+5. Access the services:
    - API and Swagger UI: http://localhost:8000/docs
    - ReDoc documentation: http://localhost:8000/redoc
    - Direct API access: http://localhost:8000
 
-5. Troubleshooting:
+6. Troubleshooting:
    - If the API is not responding, check container status: `docker ps`
    - View logs: `docker compose logs`
    - Restart services: `docker compose restart`

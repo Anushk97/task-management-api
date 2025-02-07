@@ -53,18 +53,18 @@ async def get_tasks(db: AsyncSession = Depends(get_db)):
 
 @app.get("/tasks/{task_id}", response_model=TaskResponse)
 async def get_task(task_id: int, db: AsyncSession = Depends(get_db)):
-    # Try to get from cache first
+    # try to get from cache first
     cached_task = await cache.get_task(task_id)
     if cached_task:
         return TaskResponse(**cached_task)
 
-    # If not in cache, get from database
+    # if not in cache, get from database
     result = await db.execute(select(TaskModel).filter(TaskModel.id == task_id))
     task = result.scalar_one_or_none()
     if not task:
         raise HTTPException(status_code=404, detail="Task not found")
     
-    # Cache the task
+    # cache the task
     await cache.set_task(task_id, TaskResponse.model_validate(task))
     return task
 
@@ -87,7 +87,7 @@ async def update_task(task_id: int, task_update: TaskUpdate, db: AsyncSession = 
     
     await db.commit()
     
-    # Invalidate cache
+    # invalidate cache
     await cache.invalidate_task(task_id)
     return updated_task
 
@@ -101,6 +101,5 @@ async def delete_task(task_id: int, db: AsyncSession = Depends(get_db)):
     
     await db.commit()
     
-    # Invalidate cache
     await cache.invalidate_task(task_id)
     return None
