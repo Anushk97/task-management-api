@@ -10,9 +10,11 @@ import enum
 # Get database URL from environment variable
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+asyncpg://postgres:postgres@localhost:5432/tasks")
 
-# If it's a postgres URL from Render, it needs to be modified for asyncpg
+# Ensure we're using the async driver for PostgreSQL
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql+asyncpg://", 1)
+elif DATABASE_URL.startswith("postgresql://"):
+    DATABASE_URL = DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://", 1)
 
 class Base(DeclarativeBase):
     pass
