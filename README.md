@@ -37,7 +37,7 @@ A RESTful API for managing tasks built with FastAPI, SQLite, and Redis. This API
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/anushkfarkiya/task-management-api.git
+   git clone https://github.com/Anushk97/task-management-api.git
    cd task-management-api
    ```
 
