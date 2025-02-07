@@ -1,11 +1,11 @@
 # Task Management API
 
-A RESTful API for managing tasks built with FastAPI, SQLite, and Redis. This API provides a simple and efficient way to manage tasks with full CRUD operations and caching.
+A RESTful API for managing tasks built with FastAPI, PostgreSQL, and Redis. This API provides a simple and efficient way to manage tasks with full CRUD operations and caching.
 
 ## Features
 
 - ✨ Create, read, update, and delete tasks
-- 🎯 SQLite for simple and reliable data persistence
+- 🎯 PostgreSQL for robust and scalable data persistence
 - 🚀 Redis caching for faster task retrieval
 - 🔄 Automatic timestamp management (created_at, updated_at)
 - ✅ Task status management (PENDING, IN_PROGRESS, COMPLETE)
@@ -17,7 +17,7 @@ A RESTful API for managing tasks built with FastAPI, SQLite, and Redis. This API
 
 - FastAPI (modern, fast web framework)
 - SQLAlchemy (SQL toolkit and ORM)
-- SQLite (database)
+- PostgreSQL (database)
 - Pydantic (data validation)
 - Uvicorn (ASGI server)
 
