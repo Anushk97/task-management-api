@@ -112,34 +112,13 @@ A RESTful API for managing tasks built with FastAPI, SQLite, and Redis. This API
 
 5. Access the API at http://localhost:8000
 
-## Deployment
-
-### Deploying to Render
-
-1. Fork this repository to your GitHub account
-
-2. Create a new account on [Render](https://render.com) if you haven't already
-
-3. In Render dashboard:
-   - Click "New +"
-   - Select "Web Service"
-   - Connect your GitHub repository
-   - Render will automatically detect the Docker configuration
-
-4. Configure the service:
-   - Name: task-management-api
-   - Region: Choose nearest to you
-   - Branch: main
-   - Plan: Free
-
-5. Click "Create Web Service"
 
 ### Live API
 
 The API is deployed and accessible at:
-- Base URL: https://task-management-api-7rlg.onrender.com
-- API Documentation (Swagger UI): https://task-management-api-7rlg.onrender.com/docs
-- Alternative Documentation (ReDoc): https://task-management-api-7rlg.onrender.com/redoc
+- Base URL: https://task-management-api-925f.onrender.com
+- API Documentation (Swagger UI): https://task-management-api-925f.onrender.com/docs
+- Alternative Documentation (ReDoc): https://task-management-api-925f.onrender.com/redoc
 
 Note: The free tier may take a few seconds to wake up on the first request.
 
