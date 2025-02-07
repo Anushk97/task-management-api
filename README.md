@@ -113,15 +113,6 @@ A RESTful API for managing tasks built with FastAPI, SQLite, and Redis. This API
 5. Access the API at http://localhost:8000
 
 
-### Live API
-
-The API is deployed and accessible at:
-- Base URL: https://task-management-api-925f.onrender.com
-- API Documentation (Swagger UI): https://task-management-api-925f.onrender.com/docs
-- Alternative Documentation (ReDoc): https://task-management-api-925f.onrender.com/redoc
-
-Note: The free tier may take a few seconds to wake up on the first request.
-
 ## API Usage Examples
 
 ### Create a Task
