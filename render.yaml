@@ -2,7 +2,6 @@ services:
   - type: web
     name: task-management-api
     env: docker
-    region: singapore
     plan: free
     healthCheckPath: /docs
     envVars:
