@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: task-management-api
+    env: docker
+    region: singapore
+    plan: free
+    healthCheckPath: /docs
+    envVars:
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: task-api-cache
+          property: connectionString
+
+  - type: redis
+    name: task-api-cache
+    ipAllowList: []
+    plan: free
+    maxmemoryPolicy: noeviction
