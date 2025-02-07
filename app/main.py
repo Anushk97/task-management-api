@@ -24,6 +24,15 @@ async def startup():
     redis_url = os.getenv("REDIS_URL", "redis://localhost:6379")
     await cache.init_redis(redis_url)
 
+@app.get("/")
+async def root():
+    return {
+        "message": "Welcome to Task Management API",
+        "documentation": "/docs",
+        "redoc": "/redoc",
+        "version": "1.0.0"
+    }
+
 @app.on_event("shutdown")
 async def shutdown():
     await cache.close()
